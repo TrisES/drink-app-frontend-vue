@@ -1,10 +1,10 @@
 <template>
-    <div class="mt-1" style="text-align: center;">
+    <div v-if="!currentDrink" class="mt-1" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
-    <div class="container mt-1">
+    <div v-if="!currentDrink" class="container mt-1">
         <div class="dropdown" style="text-align: center;">
             <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <ul id="drinksListe" class="list-group" style="text-align: center;">
+    <ul id="drinksListe" v-if="!currentDrink" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
                 <div class="col-3">
@@ -41,7 +41,9 @@
                                 <span class="AlkoholJaNej"> <b>{{drink.strAlcoholic}}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton">Læs mere</button>
+                                <button type="button" class="btn border-black readButton" @click="setDrink(drink)">Læs mere</button>
+                                <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
+                                
                             </div>
                         </div>
                     </div>
@@ -58,11 +60,15 @@
                 </div>
             </div>
         </li>
-    </ul>  
+    </ul>
+    <button v-if="currentDrink" type="button" class="btn border-black readButton" @click="setDrinkNull()">tilbage</button>
+    <DrinkItem v-if="currentDrink" :drink="currentDrink" />
+    
 </template>
 
 <script>
 import axios from 'axios';
+import DrinkItem from './DrinkItem.vue';
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default{
     name: 'DrinkList',
@@ -73,58 +79,62 @@ export default{
             drink: null,
             ingredients: [],
             ingredient: null,
-        }
+            currentDrink: null,
+        };
     },
     async created() {
         try {
-            const response = await axios.get(baseUrl)
-            this.drinks = await response.data.drinks
-            this.sortByDrinksName(this.drinks)
-            console.log(this.drinks)
-            this.alldrinks = this.drinks
-
-        } catch (ex) {
-            alert(ex.message)
+            const response = await axios.get(baseUrl);
+            this.drinks = await response.data.drinks;
+            this.sortByDrinksName(this.drinks);
+            console.log(this.drinks);
+            this.alldrinks = this.drinks;
+        }
+        catch (ex) {
+            alert(ex.message);
         }
     },
     methods: {
-        getAlldrinks() {
-            this.drinks = this.alldrinks
+        setDrink(drink) {
+            this.currentDrink = drink;
         },
-
+        setDrinkNull() {
+            this.currentDrink = null;
+        },
+        getAlldrinks() {
+            this.drinks = this.alldrinks;
+        },
         sortByDrinksName() {
-            this.drinks.sort((drink1, drink2) =>
-                drink1.strDrink.localeCompare(drink2.strDrink))
+            this.drinks.sort((drink1, drink2) => drink1.strDrink.localeCompare(drink2.strDrink));
         },
         sortByDrinksNameR() {
-            this.drinks.sort((drink1, drink2) =>
-                drink2.strDrink.localeCompare(drink1.strDrink))
+            this.drinks.sort((drink1, drink2) => drink2.strDrink.localeCompare(drink1.strDrink));
         },
-        
         filterShots(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Shot"))
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Shot"));
         },
-        filterOrdinaryDrink (drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Ordinary Drink"))
+        filterOrdinaryDrink(drinks) {
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Ordinary Drink"));
         },
         filterCocktails(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Cocktail"))
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Cocktail"));
         },
         filterBeer() {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Beer"))
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Beer"));
         },
         filterCoffeeTea(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Coffee / Tea"))
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Coffee / Tea"));
         },
         filterPunchParty(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Punch / Party Drink"))
+            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Punch / Party Drink"));
         },
         filterAlcholic(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Alcoholic"))
+            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Alcoholic"));
         },
         filterNonAlcholic(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"))
+            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
         },
     },
+    components: { DrinkItem }
 }
 </script>
