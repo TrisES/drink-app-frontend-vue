@@ -37,7 +37,8 @@
         </div>
     </nav>
 
-    <div v-if="!currentDrink" class="mt-1" style="text-align: center;">
+    <CreateDrink></CreateDrink>
+    <div v-if="!currentDrink" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
@@ -88,6 +89,7 @@
 <script>
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
+import CreateDrink from './CreateDrink.vue'
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
     name: 'DrinkList',
@@ -178,6 +180,8 @@ export default {
             }
         },
     },
-    components: { DrinkItem }
+    components: { DrinkItem, CreateDrink }
+    
+
 }
 </script>
