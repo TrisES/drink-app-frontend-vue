@@ -2,9 +2,8 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example" v-if="!currentDrink">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Drinks</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container mt-1">
@@ -15,11 +14,10 @@
                     </button>
                     <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
-                        <button id="filterCocktails" class="dropdown-item"
-                            v-on:click="filterCocktails()">Cocktails</button>
+                        <button id="filterCocktails" class="dropdown-item" v-on:click="filterCocktails()">Cocktails</button>
                         <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
-                        <button id="filterOrdinaryDrink" class="dropdown-item"
-                            v-on:click="filterOrdinaryDrink()">Ordinary Drink</button>
+                        <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary
+                            Drink</button>
                         <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch &
                             Party drink</button>
                         <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee &
@@ -32,8 +30,10 @@
                     </div>
                 </div>
             </div>
-            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text" v-on:keyup.enter="getByName(searchToGetBy)" />
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text" v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
+            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text"
+                v-on:keyup.enter="getByName(searchToGetBy)" />
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text"
+                v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
         </div>
     </nav>
 
@@ -99,8 +99,8 @@ export default {
             ingredients: [],
             ingredient: null,
             currentDrink: null,
-            searchToGetBy:"",
-            searchToGetByForIngredient:"",
+            searchToGetBy: "",
+            searchToGetByForIngredient: "",
         };
     },
     async created() {
@@ -155,27 +155,22 @@ export default {
         filterNonAlcholic(drinks) {
             this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
         },
-        getByName(search)
-        {
+        getByName(search) {
             const url = baseUrl + search
             console.log(url)
             this.helperGetAndShow(url)
         },
-        getByIngredient(search)
-        {
-            if(search != null)
-            {
-                this.drinks = this.alldrinks.filter(b => b.strIngredient1.includes(search)|| b.strIngredient2.includes(search))
-                return this.drinks 
+        getByIngredient(search) {
+            if (search != null) {
+                this.drinks = this.alldrinks.filter(b => b.strIngredient1.includes(search) || b.strIngredient2.includes(search))
+                return this.drinks
             }
-            else
-            {
+            else {
                 return "No drinks found"
             }
         },
-        async helperGetAndShow(url)
-        {
-            try{
+        async helperGetAndShow(url) {
+            try {
                 const response = await axios.get(url)
                 this.drinks = await response.data.drinks
             } catch (ex) {
