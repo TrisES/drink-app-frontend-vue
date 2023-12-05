@@ -1,28 +1,47 @@
 <template>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+        <div class="container-fluid" v-if="!currentDrink">
+            <a class="navbar-brand" href="">Drinks</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container mt-1">
+                <div class="dropdown" style="text-align: left;">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vælg et filter
+                    </button>
+                    <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
+                        <button id="filterCocktails" class="dropdown-item"
+                            v-on:click="filterCocktails()">Cocktails</button>
+                        <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
+                        <button id="filterOrdinaryDrink" class="dropdown-item"
+                            v-on:click="filterOrdinaryDrink()">Ordinary Drink</button>
+                        <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch &
+                            Party drink</button>
+                        <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee &
+                            Tea</button>
+                        <button id="filterBeer" class="dropdown-item" v-on:click="filterBeer()">Beer</button>
+                        <button id="filterAlcoholic" class="dropdown-item" v-on:click="filterAlcholic()">All
+                            Alcoholic Drinks</button>
+                        <button id="filterNonAlcoholic" class="dropdown-item" v-on:click="filterNonAlcholic()">All
+                            Non-Alcoholic Drinks</button>
+                    </div>
+                </div>
+            </div>
+            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text" v-on:keyup.enter="getByName(searchToGetBy)" />
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text" v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
+        </div>
+    </nav>
+
     <div v-if="!currentDrink" class="mt-1" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
-    <div v-if="!currentDrink" class="container mt-1">
-        <div class="dropdown" style="text-align: center;">
-            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Vælg en kategori
-            </button>
-            <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
-                <button id="filterCocktails" class="dropdown-item" v-on:click="filterCocktails()">Cocktails</button>
-                <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
-                <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary Drink</button>
-                <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch / Party drink</button>
-                <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee / Tea</button>
-                <button id="filterBeer" class="dropdown-item" v-on:click="filterBeer()">Beer</button>
-                <button id="filterAlcoholic" class="dropdown-item" v-on:click="filterAlcholic()">All Alcoholic Drinks</button>
-                <button id="filterNonAlcoholic" class="dropdown-item" v-on:click="filterNonAlcholic()">All Non-Alcoholic Drinks</button>
-            </div>
-        </div>
-    </div>
 
     <ul id="drinksListe" v-if="!currentDrink" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
@@ -34,16 +53,17 @@
                         <div class="media-left">
                             <div class="media-body">
                                 <div class="drinkNavn">
-                                    <h4 class="media-heading">{{drink.strDrink}}</h4>
+                                    <h4 class="media-heading">{{ drink.strDrink }}</h4>
                                 </div>
-                                Ingredienter: <span class="Indregient1">{{drink.strIngredient1}}</span> og <span
-                                    class="Indregient2">{{drink.strIngredient2}}</span><br>
-                                <span class="AlkoholJaNej"> <b>{{drink.strAlcoholic}}</b> </span>
+                                Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
+                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br>
+                                <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton" @click="setDrink(drink)">Læs mere</button>
+                                <button type="button" class="btn border-black readButton" @click="setDrink(drink)">Læs
+                                    mere</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
-                                
+
                             </div>
                         </div>
                     </div>
@@ -52,8 +72,8 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drink.strDrinkThumb"
-                                    alt="..." style="height: 100px; width: 100px;">
+                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drink.strDrinkThumb" alt="..."
+                                    style="height: 100px; width: 100px;">
                             </a>
                         </div>
                     </div>
@@ -63,14 +83,13 @@
     </ul>
     <button v-if="currentDrink" type="button" class="btn border-black readButton" @click="setDrinkNull()">tilbage</button>
     <DrinkItem v-if="currentDrink" :drink="currentDrink" />
-    
 </template>
 
 <script>
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
-export default{
+export default {
     name: 'DrinkList',
     data() {
         return {
@@ -80,6 +99,8 @@ export default{
             ingredients: [],
             ingredient: null,
             currentDrink: null,
+            searchToGetBy:"",
+            searchToGetByForIngredient:"",
         };
     },
     async created() {
@@ -133,6 +154,33 @@ export default{
         },
         filterNonAlcholic(drinks) {
             this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
+        },
+        getByName(search)
+        {
+            const url = baseUrl + search
+            console.log(url)
+            this.helperGetAndShow(url)
+        },
+        getByIngredient(search)
+        {
+            if(search != null)
+            {
+                this.drinks = this.alldrinks.filter(b => b.strIngredient1.includes(search)|| b.strIngredient2.includes(search))
+                return this.drinks 
+            }
+            else
+            {
+                return "No drinks found"
+            }
+        },
+        async helperGetAndShow(url)
+        {
+            try{
+                const response = await axios.get(url)
+                this.drinks = await response.data.drinks
+            } catch (ex) {
+                alert(ex.message)
+            }
         },
     },
     components: { DrinkItem }
