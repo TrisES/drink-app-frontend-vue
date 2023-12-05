@@ -8,12 +8,16 @@
         <div class="row mb-2">
             <h3>Drink details</h3>
         </div>
+
+        <!-- Name -->
         <div class="row">
             <div class="col mb-3 form-group">
                 <label for="CreateName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="CreateName" placeholder="fx FireBall" required>
             </div>
         </div>
+
+        <!-- Cocktail Kategori -->
         <div class="row">
             <div class="col mb-3 form-group">
                 <label for="CreateType custom-select">Type</label>
@@ -29,6 +33,7 @@
             </div>
         </div>
 
+        <!-- Ingredients -->
         <div class="row" id="CreateIngredients">
             <div class="col mb-3 form-group">
                 <label for="CreateInName" class="form-label">Ingredients</label>
@@ -37,7 +42,7 @@
             </div>
             <div class="col mb-3 form-group">
                 <label for="CreateAmount" class="form-label">amount</label>
-                <input type="text" class="form-control mb-2" id="CreateAmount" placeholder="amount" v-for="n in Count"
+                <input type="number" class="form-control mb-2" id="CreateAmount" placeholder="amount" v-for="n in Count"
                     required>
             </div>
             <div div class="col mb-3 mt-2 form-group">
@@ -57,20 +62,38 @@
                     <!-- <button type="button" class="btn btn-danger disabled" v-if="Count=2">-</button> -->
                 </div>
             </div>
-
-
-            <div class="row mt-3">
-                <label for="Alcoholic">Alcoholic: <span id="AlcoholicV">{{ Alcoholic }}</span></label>
-            </div>
-            <div class="mt-1 mb-4">   
-                <button type="button" class="btn btn-outline-primary w-50" @click="setAlcoholic(true)">Yes</button>
-                <button type="button" class="btn btn-outline-danger w-50" @click="setAlcoholic(false)">No</button>
-            </div>
-
-            <div class="text-center">
-                <button type="button" class="btn btn-dark w-50">Create Drink</button>
-            </div>
         </div>
+
+        <!-- Alcoholic ? yes or no -->
+        <div class="row mt-3">
+            <label for="Alcoholic">Alcoholic: <span id="AlcoholicV">{{ Alcoholic }}</span></label>
+        </div>
+        <div class="mt-1 mb-4">
+            <button type="button" class="btn btn-primary w-50" @click="setAlcoholic(true)">Yes</button>
+            <button type="button" class="btn btn-danger w-50" @click="setAlcoholic(false)">No</button>
+        </div>
+
+        <!-- Instructions Text Box -->
+        <div class="mb-3">
+            <label for="intructionsTextArea" class="form-label">Instructions</label>
+            <textarea class="form-control" id="intructionsTextArea" rows="3"></textarea>
+        </div>
+
+
+        <!-- Image Upload -->
+        <div class="mb-3">
+            <label for="drinkImage" class="form-label">Image of Drink:</label>
+            <input class="form-control" type="file" id="drinkImage">
+        </div>
+
+        <!-- TODO: evt. glass type -->
+
+        <!-- Create button / Submit -->
+        <div class="text-center">
+            <button type="button" class="btn btn-success w-50">Create Drink</button>
+        </div>
+
+
     </div>
 </template>
 
@@ -92,7 +115,7 @@ export default {
             if (this.Count > 2)
                 this.Count--
         },
-        setAlcoholic(bool){
+        setAlcoholic(bool) {
             if (bool)
                 this.Alcoholic = "Alcoholic"
             else
