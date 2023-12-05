@@ -1,6 +1,6 @@
 <template>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-        <div class="container-fluid" v-if="!currentDrink">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example" v-if="!currentDrink">
+        <div class="container-fluid">
             <a class="navbar-brand" href="">Drinks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
