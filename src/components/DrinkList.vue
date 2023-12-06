@@ -36,15 +36,18 @@
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
         </div>
     </nav>
-
-    <CreateDrink></CreateDrink>
-    <div v-if="!currentDrink" class="mt-1 mt-5" style="text-align: center;">
+    <div class="text-center">
+        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
+    </div>
+    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
+    <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
+    <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
 
-    <ul id="drinksListe" v-if="!currentDrink" class="list-group" style="text-align: center;">
+    <ul id="drinksListe" v-if="currentPage == 'liste'" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
                 <div class="col-3">
@@ -61,7 +64,7 @@
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton" @click="setDrink(drink)">Læs
+                                <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" >Læs
                                     mere</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
@@ -82,8 +85,8 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentDrink" type="button" class="btn border-black readButton" @click="setDrinkNull()">tilbage</button>
-    <DrinkItem v-if="currentDrink" :drink="currentDrink" />
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste') + setDrinkNull()">tilbage</button>
+    <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
 </template>
 
 <script>
@@ -103,6 +106,7 @@ export default {
             currentDrink: null,
             searchToGetBy: "",
             searchToGetByForIngredient: "",
+            currentPage: "liste"
         };
     },
     async created() {
@@ -120,6 +124,9 @@ export default {
     methods: {
         setDrink(drink) {
             this.currentDrink = drink;
+        },
+        setCurrentPage(page){
+            this.currentPage = page
         },
         setDrinkNull() {
             this.currentDrink = null;
