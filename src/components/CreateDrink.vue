@@ -12,7 +12,7 @@
         <!-- Name -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="CreateName" class="form-label">Name</label>
+                <label for="CreateName" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="CreateName" placeholder="fx FireBall" required>
             </div>
         </div>
@@ -20,8 +20,8 @@
         <!-- Cocktail Kategori -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="CreateType custom-select">Type</label>
-                <select class="form-control" id="CreateType" required>
+                <label for="CreateType custom-select">Type:</label>
+                <select class="form-control mt-2" id="CreateType" required>
                     <option>None</option>
                     <option>Cocktail</option>
                     <option>Shot</option>
@@ -36,16 +36,16 @@
         <!-- Ingredients -->
         <div class="row" id="CreateIngredients">
             <div class="col mb-3 form-group">
-                <label for="CreateInName" class="form-label">Ingredients</label>
+                <label for="CreateInName" class="form-label">Ingredients:</label>
                 <input type="text" class="form-control mb-2" id="CreateInName" placeholder="Cola" v-for="n in Count"
                     required>
             </div>
             <div class="col mb-3 form-group">
-                <label for="CreateAmount" class="form-label">amount</label>
-                <input type="number" class="form-control mb-2" id="CreateAmount" placeholder="amount" v-for="n in Count"
+                <label for="CreateAmount" class="form-label">Amount in ml:</label>
+                <input type="number" class="form-control mb-2" id="CreateAmount" placeholder="ml" v-for="n in Count"
                     required>
             </div>
-            <div div class="col mb-3 mt-2 form-group">
+            <!-- <div div class="col mb-3 mt-2 form-group">
                 <label for="Unit">Unit</label>
                 <select class="form-control custom-select mb-2" id="Unit" v-for="n in Count" required>
                     <option>ML</option>
@@ -54,10 +54,10 @@
                     <option>OZ</option>
                 </select>
                 <div class="invalid-feedback">Choose a type</div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="textcenter">
-                    <button type="button" class="btn btn-primary" @click="count()" v-if="Count < 15">+</button>
+                    <button type="button" class="btn btn-primary" @click="count()" v-if="Count < 6">+</button>
                     <button type="button" class="btn btn-danger" @click="countDown()" v-if="Count > 2">-</button>
                     <!-- <button type="button" class="btn btn-danger disabled" v-if="Count=2">-</button> -->
                 </div>
@@ -75,15 +75,25 @@
 
         <!-- Instructions Text Box -->
         <div class="mb-3">
-            <label for="intructionsTextArea" class="form-label">Instructions</label>
-            <textarea class="form-control" id="intructionsTextArea" rows="3"></textarea>
+            <label for="intructionsTextArea" class="form-label">Instructions:</label>
+            <textarea class="form-control" id="intructionsTextArea" rows="3" placeholder="Write instructions here..."></textarea>
         </div>
 
 
         <!-- Image Upload -->
-        <div class="mb-3">
-            <label for="drinkImage" class="form-label">Image of Drink:</label>
-            <input class="form-control" type="file" id="drinkImage">
+        <div class="row">
+            <div class="col mb-3 form-group">
+                <label for="ImageLink" class="form-label">Image link:</label>
+                <input type="text" class="form-control" id="ImageLink" placeholder="https://images.com/drinks/mojito.png" required>
+            </div>
+        </div>
+
+        <!-- Name of Recipe Creator -->
+        <div class="row">
+            <div class="col mb-3 form-group">
+                <label for="RecipeCreatorName" class="form-label">Recipe Creator Name:</label>
+                <input type="text" class="form-control" id="RecipeCreatorName" placeholder="Full Name" required>
+            </div>
         </div>
 
         <!-- TODO: evt. glass type -->
@@ -108,7 +118,7 @@ export default {
     },
     methods: {
         count() {
-            if (this.Count < 15)
+            if (this.Count < 6)
                 this.Count++
         },
         countDown() {
