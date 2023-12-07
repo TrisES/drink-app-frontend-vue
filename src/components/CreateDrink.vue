@@ -157,14 +157,15 @@ export default {
             if (this.ValidateModel()) {
                 try {
                     console.log(this.DrinkModel)
-                    // stringify
                     this.MeasuresToString()
-                    // console.log(JSON.stringify(this.DrinkModel))
-                    response = await axios.post('https://localhost:5002/api/DrinksModel', this.DrinkModel)
-                    console.log(response.status + " " + response.statusText)
+                    response = await axios.post('http://localhost:5002/api/DrinkModel', this.DrinkModel)
+                    // console.log(response.status + " " + response.statusText)
+                    if (response.status == 200) {
+                        alert("Drink created")
+                    }
                 } catch (ex) {
                     console.log(ex.message)
-                    alert(ex.message)
+                    alert("CreateDrink Exception: "+ex.message)
                 }
             }
 
