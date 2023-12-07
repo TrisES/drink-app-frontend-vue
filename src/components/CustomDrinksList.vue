@@ -1,5 +1,5 @@
 <template>
-    <NavBar v-if="currentPage == 'CustomDrinksList'" />
+    
     <div class="text-center">
         <button v-if="currentPage == 'liste' || 'CustomDrinkList' " type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
@@ -151,7 +151,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink }
+    components: { DrinkItem, CreateDrink, NavBar, }
     
 
 }

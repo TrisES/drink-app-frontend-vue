@@ -1,12 +1,15 @@
 <template>
-   <NavBar v-if="currentPage == 'liste'" />
+   <NavBar v-if="currentPage == 'liste'" /> 
+   <NavBar v-if="currentPage == 'CustomDrinkList'" />
+   
     <div class="text-center">
         <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
     
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
     <button v-if="currentPage == 'CustomDrinkList'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
-    <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
+    <CreateDrink v-if="currentPage == 'CreateDrink'"/>
+
 
     <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
     <div class="text-center">
