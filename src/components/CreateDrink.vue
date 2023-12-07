@@ -12,22 +12,24 @@
         <!-- Name -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="CreateName" class="form-label">Name:</label>
-                <input type="text" v-model="DrinkModel.strDrink" class="form-control" id="CreateName" placeholder="fx FireBall" required>
+                <label for="CreateName" class="form-label fw-bold">Name:</label>
+                <input type="text" v-model="DrinkModel.strDrink" class="form-control" id="CreateName"
+                    placeholder="fx FireBall" required>
             </div>
         </div>
 
         <!-- Cocktail Kategori -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="CreateType custom-select">Type:</label>
-                <select class="form-control mt-2" v-model="DrinkModel.strCategory" id="CreateType" required>
-                    <option>None</option>
-                    <option>Cocktail</option>
-                    <option>Shot</option>
-                    <option>Partydrink</option>
-                    <option>Beer</option>
-                    <option>Coffee/tea</option>
+                <label for="CreateType custom-select" class="fw-bold">Type:</label>
+                <select class="form-control mt-2" aria-label="Small select example" v-model="DrinkModel.strCategory"
+                    id="CreateType" required>
+                    <option selected>Choose a Category</option>
+                    <option value="Cocktail">Cocktail</option>
+                    <option value="Shot">Shot</option>
+                    <option value="Partydrink">Partydrink</option>
+                    <option value="Beer">Beer</option>
+                    <option value="Coffee / Tea">Coffee / Tea</option>
                 </select>
                 <div class="invalid-feedback">Choose a type</div>
             </div>
@@ -36,28 +38,30 @@
         <!-- Ingredients -->
         <div class="row" id="CreateIngredients">
             <div class="col mb-3 form-group">
-                <label for="CreateInName" class="form-label">Ingredients:</label>
-                <input type="text" v-model="DrinkModel.strIngredient1" class="form-control mb-2" id="CreateInName" placeholder="Ingredient1" required>
-                <input type="text" v-model="DrinkModel.strIngredient2" class="form-control mb-2" id="CreateInName" placeholder="Ingredient2" required>
-                <input type="text" v-model="DrinkModel.strIngredient3" class="form-control mb-2" id="CreateInName" placeholder="Ingredient3" required>
-                <input type="text" v-model="DrinkModel.strIngredient4" class="form-control mb-2" id="CreateInName" placeholder="Ingredient4" required>
-                <input type="text" v-model="DrinkModel.strIngredient5" class="form-control mb-2" id="CreateInName" placeholder="Ingredient5" required>
-                <input type="text" v-model="DrinkModel.strIngredient6" class="form-control mb-2" id="CreateInName" placeholder="Ingredient6" required>
+                <label for="CreateInName" class="form-label fw-bold">Ingredients:</label>
+                <input type="text" v-model="DrinkModel.strIngredient1" class="form-control mb-2" placeholder="Ingredient1"
+                    required>
+                <input type="text" v-model="DrinkModel.strIngredient2" class="form-control mb-2" placeholder="Ingredient2"
+                    required>
+                <input type="text" v-model="DrinkModel.strIngredient3" class="form-control mb-2" placeholder="Ingredient3">
+                <input type="text" v-model="DrinkModel.strIngredient4" class="form-control mb-2" placeholder="Ingredient4">
+                <input type="text" v-model="DrinkModel.strIngredient5" class="form-control mb-2" placeholder="Ingredient5">
+                <input type="text" v-model="DrinkModel.strIngredient6" class="form-control mb-2" placeholder="Ingredient6">
             </div>
             <div class="col mb-3 form-group">
-                <label for="CreateAmount" class="form-label">Amount in ml:</label>
-                <input type="number" v-model="DrinkModel.strMeasure1" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
-                <input type="number" v-model="DrinkModel.strMeasure2" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
-                <input type="number" v-model="DrinkModel.strMeasure3" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
-                <input type="number" v-model="DrinkModel.strMeasure4" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
-                <input type="number" v-model="DrinkModel.strMeasure5" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
-                <input type="number" v-model="DrinkModel.strMeasure6" class="form-control mb-2" id="CreateAmount" placeholder="ml" required>
+                <label for="CreateAmount" class="form-label fw-bold">Amount in ml:</label>
+                <input type="number" v-model="DrinkModel.strMeasure1" class="form-control mb-2" placeholder="ml" required>
+                <input type="number" v-model="DrinkModel.strMeasure2" class="form-control mb-2" placeholder="ml" required>
+                <input type="number" v-model="DrinkModel.strMeasure3" class="form-control mb-2" placeholder="ml">
+                <input type="number" v-model="DrinkModel.strMeasure4" class="form-control mb-2" placeholder="ml">
+                <input type="number" v-model="DrinkModel.strMeasure5" class="form-control mb-2" placeholder="ml">
+                <input type="number" v-model="DrinkModel.strMeasure6" class="form-control mb-2" placeholder="ml">
             </div>
         </div>
 
         <!-- Alcoholic ? yes or no -->
         <div class="row mt-3">
-            <label for="Alcoholic">Alcoholic: <span id="AlcoholicV">{{ Alcoholic }}</span></label>
+            <label for="Alcoholic" class="fw-bold">Alcoholic: <span id="AlcoholicV">{{ Alcoholic }}</span></label>
         </div>
         <div class="mt-1 mb-4">
             <button type="button" class="btn btn-primary w-50" @click="setAlcoholic(true)">Yes</button>
@@ -66,24 +70,27 @@
 
         <!-- Instructions Text Box -->
         <div class="mb-3">
-            <label for="intructionsTextArea" class="form-label">Instructions:</label>
-            <textarea class="form-control" v-model="DrinkModel.strInstructions"  id="intructionsTextArea" rows="3" placeholder="Write instructions here..."></textarea>
+            <label for="intructionsTextArea" class="form-label fw-bold">Instructions:</label>
+            <textarea class="form-control" v-model="DrinkModel.strInstructions" id="intructionsTextArea" rows="3"
+                placeholder="Write instructions here..."></textarea>
         </div>
 
 
         <!-- Image Upload -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="ImageLink" class="form-label">Image link:</label>
-                <input type="text" class="form-control" v-model="DrinkModel.strDrinkThumb" id="ImageLink" placeholder="https://images.com/drinks/mojito.png" required>
+                <label for="ImageLink" class="form-label fw-bold">Image link:</label>
+                <input type="text" class="form-control" v-model="DrinkModel.strDrinkThumb" id="ImageLink"
+                    placeholder="https://images.com/drinks/mojito.png" required>
             </div>
         </div>
 
         <!-- Name of Recipe Creator -->
         <div class="row">
             <div class="col mb-3 form-group">
-                <label for="RecipeCreatorName" class="form-label">Recipe Creator Name:</label>
-                <input type="text" class="form-control" v-model="DrinkModel.creator" id="RecipeCreatorName" placeholder="Full Name" required>
+                <label for="RecipeCreatorName" class="form-label fw-bold">Recipe Creator Name:</label>
+                <input type="text" class="form-control" v-model="DrinkModel.creator" id="RecipeCreatorName"
+                    placeholder="Full Name" required>
             </div>
         </div>
 
@@ -91,7 +98,7 @@
 
         <!-- Create button / Submit -->
         <div class="text-center">
-            <button type="button" class="btn btn-success w-50">Create Drink</button>
+            <button type="button" class="btn btn-success w-50" @click="createDrink()">Create Drink</button>
         </div>
 
 
@@ -99,6 +106,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'CreateDrink',
     data() {
@@ -109,7 +118,7 @@ export default {
                 "strDrink": "",
                 "strTags": null,
                 "strVideo": null,
-                "strCategory": "",
+                "strCategory": "Choose a Category",
                 "strIBA": null,
                 "strAlcoholic": "",
                 "strGlass": null,
@@ -139,10 +148,72 @@ export default {
                 this.Alcoholic = "Alcoholic"
                 this.DrinkModel.strAlcoholic = 'Alcoholic'
             }
-            else{
+            else {
                 this.Alcoholic = "Non Alcoholic"
                 this.DrinkModel.strAlcoholic = 'Non Alcoholic'
             }
+        },
+        async createDrink() {
+            if (this.ValidateModel()) {
+                try {
+                    console.log(this.DrinkModel)
+                    // stringify
+                    this.MeasuresToString()
+                    // console.log(JSON.stringify(this.DrinkModel))
+                    response = await axios.post('https://localhost:5002/api/DrinksModel', this.DrinkModel)
+                    console.log(response.status + " " + response.statusText)
+                } catch (ex) {
+                    console.log(ex.message)
+                    alert(ex.message)
+                }
+            }
+
+        },
+        MeasuresToString() {
+            // convert int to string
+            for (let i = 1; i < 7; i++) {
+                if (this.DrinkModel["strMeasure" + i] != null) {
+                    this.DrinkModel["strMeasure" + i] = this.DrinkModel["strMeasure" + i].toString()
+                }
+            }
+        },
+        ValidateModel() {
+            if (this.DrinkModel.strDrink == "") {
+                alert("Name is required")
+                return false;
+            }
+            else if (this.DrinkModel.strCategory == "") {
+                alert("Category is required")
+                return false;
+            }
+            else if (this.DrinkModel.strIngredient1 == "") {
+                alert("Ingredient1 is required")
+                return false;
+            }
+            else if (this.DrinkModel.strMeasure1 == "") {
+                alert("Amount of Ingredient1 is required")
+                return false;
+            }
+            else if (this.DrinkModel.strIngredient2 == "") {
+                alert("Ingredient2 is required")
+                return false;
+            }
+            else if (this.DrinkModel.strMeasure2 == "") {
+                alert("Amount of Ingredient2 is required")
+                return false;
+            }
+            else if (this.DrinkModel.strInstructions == "") {
+                alert("Instructions is required")
+                return false;
+            }
+            // else if (this.DrinkModel.strDrinkThumb == "") {
+            //     alert("Image link is required")
+            // }
+            else if (this.DrinkModel.creator == "") {
+                alert("Creator name is required")
+                return false;
+            }
+            return true;
         }
     }
 }
