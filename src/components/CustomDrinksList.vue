@@ -1,7 +1,7 @@
 <template>
-    
+    <NavBar v-if="currentPage == 'CustomDrinksList'" />
     <div class="text-center">
-        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
+        <button v-if="currentPage == 'liste' || 'CustomDrinkList' " type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
@@ -56,6 +56,7 @@
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
+import NavBar from './NavBar.vue';
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
     name: 'DrinkList',
