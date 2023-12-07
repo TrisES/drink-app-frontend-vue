@@ -75,6 +75,7 @@ export default {
     async created() {
         try {
             const response = await axios.get(baseUrl);
+            console.log(baseUrl)
             this.drinks = await response.data;
             this.sortByDrinksName(this.drinks);
             console.log(this.drinks);
@@ -144,6 +145,7 @@ export default {
         async helperGetAndShow(url) {
             try {
                 const response = await axios.get(url)
+                console.log(url)
                 this.drinks = await response.data.drinks
             } catch (ex) {
                 alert(ex.message)
