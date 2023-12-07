@@ -1,52 +1,9 @@
 <template>
-    <nav v-if="currentPage=='liste'" class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="">Drinks</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
-                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="container mt-1">
-                <div class="dropdown" style="text-align: left;">
-                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Vælg et filter
-                    </button>
-                    <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
-                        <button id="filterCocktails" class="dropdown-item" v-on:click="filterCocktails()">Cocktails</button>
-                        <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
-                        <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary
-                            Drink</button>
-                        <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch &
-                            Party drink</button>
-                        <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee &
-                            Tea</button>
-                        <button id="filterBeer" class="dropdown-item" v-on:click="filterBeer()">Beer</button>
-                        <button id="filterAlcoholic" class="dropdown-item" v-on:click="filterAlcholic()">All
-                            Alcoholic Drinks</button>
-                        <button id="filterNonAlcoholic" class="dropdown-item" v-on:click="filterNonAlcholic()">All
-                            Non-Alcoholic Drinks</button>
-                    </div>
-                </div>
-            </div>
-            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text"
-                v-on:keyup.enter="getByName(searchToGetBy)" />
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text"
-                v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
-        </div>
-    </nav>
+    
     <div class="text-center">
         <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
-    
-    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
-    <button v-if="currentPage == 'CustomDrinkList'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
-
-    <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
-    <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CustomDrinkList')">custom drink list</button>
-    
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
@@ -99,7 +56,6 @@
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
-import CustomDrinksList from './CustomDrinksList.vue';
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
     name: 'DrinkList',
@@ -194,7 +150,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink, CustomDrinksList }
+    components: { DrinkItem, CreateDrink }
     
 
 }
