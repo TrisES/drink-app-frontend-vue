@@ -4,13 +4,13 @@
         <button v-if="currentPage == 'liste' || 'CustomDrinkList' " type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
-    <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
+    <div v-if="currentPage == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
 
-    <ul id="drinksListe" v-if="currentPage == 'liste'" class="list-group" style="text-align: center;">
+    <ul id="drinksListe" v-if="currentPage == 'CustomDrinksList'" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
                 <div class="col-3">
@@ -48,7 +48,7 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste') + setDrinkNull()">tilbage</button>
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
 </template>
 
@@ -56,8 +56,7 @@
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
-import NavBar from './NavBar.vue';
-const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
+const baseUrl = "http://localhost:5002/api/DrinkModel"
 export default {
     name: 'DrinkList',
     data() {
@@ -70,13 +69,13 @@ export default {
             currentDrink: null,
             searchToGetBy: "",
             searchToGetByForIngredient: "",
-            currentPage: "liste"
+            currentPage: 'CustomDrinksList',
         };
     },
     async created() {
         try {
             const response = await axios.get(baseUrl);
-            this.drinks = await response.data.drinks;
+            this.drinks = await response.data;
             this.sortByDrinksName(this.drinks);
             console.log(this.drinks);
             this.alldrinks = this.drinks;
@@ -151,7 +150,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink, NavBar, }
+    components: { DrinkItem, CreateDrink, }
     
 
 }
