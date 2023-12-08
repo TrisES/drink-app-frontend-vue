@@ -120,7 +120,7 @@ export default {
                 "strVideo": null,
                 "strCategory": "Cocktail",
                 "strIBA": null,
-                "strAlcoholic": "",
+                "strAlcoholic": "Alcoholic",
                 "strGlass": null,
                 "strInstructions": "",
                 "strDrinkThumb": "",
