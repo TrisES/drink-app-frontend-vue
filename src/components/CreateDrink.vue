@@ -24,8 +24,8 @@
                 <label for="CreateType custom-select" class="fw-bold">Type:</label>
                 <select class="form-control mt-2" aria-label="Small select example" v-model="DrinkModel.strCategory"
                     id="CreateType" required>
-                    <option selected>Choose a Category</option>
-                    <option value="Cocktail">Cocktail</option>
+                    <!-- <option selected>Choose a Category</option> -->
+                    <option value="Cocktail" selected>Cocktail</option>
                     <option value="Shot">Shot</option>
                     <option value="Partydrink">Partydrink</option>
                     <option value="Beer">Beer</option>
@@ -118,7 +118,7 @@ export default {
                 "strDrink": "",
                 "strTags": null,
                 "strVideo": null,
-                "strCategory": "Choose a Category",
+                "strCategory": "Cocktail",
                 "strIBA": null,
                 "strAlcoholic": "",
                 "strGlass": null,
@@ -138,7 +138,7 @@ export default {
                 "strMeasure6": null,
                 "strImageSource": null,
                 "id": 0,
-                "creator": "string"
+                "creator": "Name"
             }
         }
     },
@@ -154,10 +154,10 @@ export default {
             }
         },
         async createDrink() {
+            this.MeasuresToString()
             if (this.ValidateModel()) {
                 try {
                     console.log(this.DrinkModel)
-                    this.MeasuresToString()
                     let responsePost = await axios.post('http://localhost:5002/api/DrinkModel', this.DrinkModel)
                     // console.log(response.status + " " + response.statusText)
                     if (responsePost.status == 200) {
