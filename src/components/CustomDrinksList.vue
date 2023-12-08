@@ -161,7 +161,7 @@ export default {
             this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
         },
         getByName(search) {
-            const url = baseUrl + search
+            const url = baseUrl + '?name=' + search
             console.log(url)
             this.helperGetAndShow(url)
         },
