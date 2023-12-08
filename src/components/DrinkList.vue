@@ -41,6 +41,8 @@
     </div>
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
+    <!-- Denne update drink komponent skal ind i vores egen liste, husk at skifte id og drink -->
+    <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="5" :drinkToUpdate="currentDrink"></UpdateDrink>
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
@@ -67,8 +69,8 @@
                             </div>
                             <div class="mt-2">
                                 <button type="button" class="btn btn-primary" @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
-                                <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
-
+                                <!-- Denne knap skal ind på vores egen liste -->
+                                <button type="button" class="btn btn-secondary" @click="setDrink(drink) + setCurrentPage('UpdateDrink')">Update</button>
                             </div>
                         </div>
                     </div>
@@ -94,6 +96,7 @@
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
+import UpdateDrink from './UpdateDrink.vue';
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
     name: 'DrinkList',
@@ -188,7 +191,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink }
+    components: { DrinkItem, CreateDrink, UpdateDrink }
     
 
 }
