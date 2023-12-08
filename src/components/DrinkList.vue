@@ -66,7 +66,7 @@
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn btn-primary" @click="setDrink(drink)">Details</button>
+                                <button type="button" class="btn btn-primary" @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
                             </div>
