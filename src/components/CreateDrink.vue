@@ -158,7 +158,7 @@ export default {
             if (this.ValidateModel()) {
                 try {
                     console.log(this.DrinkModel)
-                    let responsePost = await axios.post('http://localhost:5002/api/DrinkModel', this.DrinkModel)
+                    let responsePost = await axios.post('https://drinksmaskinerest.azurewebsites.net/api/DrinkModel', this.DrinkModel)
                     // console.log(response.status + " " + response.statusText)
                     if (responsePost.status == 200) {
                         alert("Drink created")
