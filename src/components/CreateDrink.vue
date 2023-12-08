@@ -158,14 +158,17 @@ export default {
                 try {
                     console.log(this.DrinkModel)
                     this.MeasuresToString()
-                    response = await axios.post('http://localhost:5002/api/DrinkModel', this.DrinkModel)
+                    let responsePost = await axios.post('http://localhost:5002/api/DrinkModel', this.DrinkModel)
                     // console.log(response.status + " " + response.statusText)
-                    if (response.status == 200) {
+                    if (responsePost.status == 200) {
                         alert("Drink created")
                     }
-                } catch (ex) {
-                    console.log(ex.message)
-                    alert("CreateDrink Exception: "+ex.message)
+                    if (responsePost.status == 400) {
+                        alert("Drink not created")
+                    }
+                } catch (exPost) {
+                    console.log(exPost.message)
+                    alert("Drink not created. \nException: "+exPost.message)
                 }
             }
 
@@ -179,31 +182,31 @@ export default {
             }
         },
         ValidateModel() {
-            if (this.DrinkModel.strDrink == "") {
+            if (this.DrinkModel.strDrink.trim() == "") {
                 alert("Name is required")
                 return false;
             }
-            else if (this.DrinkModel.strCategory == "") {
+            else if (this.DrinkModel.strCategory.trim() == "") {
                 alert("Category is required")
                 return false;
             }
-            else if (this.DrinkModel.strIngredient1 == "") {
+            else if (this.DrinkModel.strIngredient1.trim() == "") {
                 alert("Ingredient1 is required")
                 return false;
             }
-            else if (this.DrinkModel.strMeasure1 == "") {
+            else if (this.DrinkModel.strMeasure1.trim() == "") {
                 alert("Amount of Ingredient1 is required")
                 return false;
             }
-            else if (this.DrinkModel.strIngredient2 == "") {
+            else if (this.DrinkModel.strIngredient2.trim() == "") {
                 alert("Ingredient2 is required")
                 return false;
             }
-            else if (this.DrinkModel.strMeasure2 == "") {
+            else if (this.DrinkModel.strMeasure2.trim() == "") {
                 alert("Amount of Ingredient2 is required")
                 return false;
             }
-            else if (this.DrinkModel.strInstructions == "") {
+            else if (this.DrinkModel.strInstructions.trim() == "") {
                 alert("Instructions is required")
                 return false;
             }
