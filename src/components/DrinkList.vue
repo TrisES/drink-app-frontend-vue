@@ -10,10 +10,10 @@
                 <div class="dropdown" style="text-align: left;">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Vælg et filter
+                        Pick a Filter
                     </button>
                     <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
+                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">All</button>
                         <button id="filterCocktails" class="dropdown-item" v-on:click="filterCocktails()">Cocktails</button>
                         <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
                         <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text"
+            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Name" type="text"
                 v-on:keyup.enter="getByName(searchToGetBy)" />
             <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text"
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
@@ -59,13 +59,14 @@
                                 <div class="drinkNavn">
                                     <h4 class="media-heading">{{ drink.strDrink }}</h4>
                                 </div>
-                                Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
-                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br>
+                                <!-- Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
+                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br> -->
+                                <!-- Tags: <span class="Tags">{{ drink.strTags }}</span><br> -->
+                                Category: <span class="Kategori">{{ drink.strCategory }}</span><br>
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" >Læs
-                                    mere</button>
+                                <button type="button" class="btn btn-primary" @click="setDrink(drink)">Details</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
                             </div>
@@ -85,7 +86,7 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste') + setDrinkNull()">tilbage</button>
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger" @click="setCurrentPage('liste') + setDrinkNull()">Go Back</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
 </template>
 
