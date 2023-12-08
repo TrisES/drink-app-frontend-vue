@@ -1,5 +1,5 @@
 <template>
-    <nav v-if="currentPage == 'CustomDrinksList'" class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+    <nav v-if="currentPageCustom == 'CustomDrinksList'" class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Drinks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
@@ -13,13 +13,13 @@
                         Vælg et filter
                     </button>
                     <div id="filterMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinks()">Alle</button>
+                        <button id="filterAll" class="dropdown-item" v-on:click="getAlldrinksCustom()">Alle</button>
                         <button id="filterCocktails" class="dropdown-item" v-on:click="filterCocktails()">Cocktails</button>
                         <button id="filterShots" class="dropdown-item" v-on:click="filterShots()">Shots</button>
                         <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary
                             Drink</button>
                         <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch &
-                            Party drink</button>
+                            Party drinkCustom</button>
                         <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee &
                             Tea</button>
                         <button id="filterBeer" class="dropdown-item" v-on:click="filterBeer()">Beer</button>
@@ -30,20 +30,20 @@
                     </div>
                 </div>
             </div>
-            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text"
-                v-on:keyup.enter="getByName(searchToGetBy)" />
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text"
-                v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
+            <input id="searchBarNavn" v-model="searchToGetByCustom" placeholder="Drink Navn" type="text"
+                v-on:keyup.enter="getByNameCustom(searchToGetByCustom)" />
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Ingredient" type="text"
+                v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
         </div>
     </nav>
-    <div v-if="currentPage == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
+    <div v-if="currentPageCustom == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
 
-    <ul id="drinksListe" v-if="currentPage == 'CustomDrinksList'" class="list-group" style="text-align: center;">
-        <li class="list-Group-item mt-2" v-for="drink in drinks">
+    <ul id="drinksListe" v-if="currentPageCustom == 'CustomDrinksList'" class="list-group" style="text-align: center;">
+        <li class="list-Group-item mt-2" v-for="drinkCustom in drinksCustom">
             <div class="row">
                 <div class="col-3">
                 </div>
@@ -52,14 +52,14 @@
                         <div class="media-left">
                             <div class="media-body">
                                 <div class="drinkNavn">
-                                    <h4 class="media-heading">{{ drink.strDrink }}</h4>
+                                    <h4 class="media-heading">{{ drinkCustom.strDrink }}</h4>
                                 </div>
-                                Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
-                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br>
-                                <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
+                                Ingredienter: <span class="Indregient1">{{ drinkCustom.strIngredient1 }}</span> og <span
+                                    class="Indregient2">{{ drinkCustom.strIngredient2 }}</span><br>
+                                <span class="AlkoholJaNej"> <b>{{ drinkCustom.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" >Læs
+                                <button type="button" class="btn border-black readButton" @click="setDrink(drinkCustom) + setCurrentPage('DrinkItem');" >Læs
                                     mere</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
@@ -71,7 +71,7 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drink.strDrinkThumb" alt="..."
+                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drinkCustom.strDrinkThumb" alt="..."
                                     style="height: 100px; width: 100px;">
                             </a>
                         </div>
@@ -80,105 +80,106 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
-    <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
+    <button v-if="currentPageCustom == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
+    <DrinkItem v-if="currentPageCustom == 'DrinkItem'" :drinkCustom="currentDrinkCustom" />
 </template>
 
 <script>
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
-const baseUrl = "http://localhost:5002/api/DrinkModel"
+const baseUrlCustom = "http://localhost:5002/api/DrinkModel"
 export default {
-    name: 'DrinkList',
+    name: 'CustomDrinksList',
     data() {
         return {
-            alldrinks: [],
-            drinks: [],
-            drink: null,
-            ingredients: [],
-            ingredient: null,
-            currentDrink: null,
-            searchToGetBy: "",
-            searchToGetByForIngredient: "",
-            currentPage: 'CustomDrinksList',
+            alldrinksCustom: [],
+            drinksCustom: [],
+            drinkCustom: null,
+            ingredientsCustom: [],
+            ingredientCustom: null,
+            currentDrinkCustom: null,
+            searchToGetByCustom: "",
+            searchToGetByForIngredientCustom: "",
+            currentPageCustom: 'CustomDrinksList',
         };
     },
     async created() {
         try {
-            const response = await axios.get(baseUrl);
-            console.log(baseUrl)
-            this.drinks = await response.data;
-            this.sortByDrinksName(this.drinks);
-            console.log(this.drinks);
-            this.alldrinks = this.drinks;
+            const responseCustom = await axios.get(baseUrlCustom);
+            console.log(baseUrlCustom)
+            this.drinksCustom = await responseCustom.data;
+            this.sortByDrinksName(this.drinksCustom);
+            console.log(this.drinksCustom);
+            this.alldrinksCustom = this.drinksCustom;
         }
         catch (ex) {
             alert(ex.message);
         }
     },
     methods: {
-        setDrink(drink) {
-            this.currentDrink = drink;
+        setDrink(drinkCustom) {
+            this.currentDrinkCustom = drinkCustom;
         },
         setCurrentPage(page){
-            this.currentPage = page
+            this.currentPageCustom = page
         },
         setDrinkNull() {
-            this.currentDrink = null;
+            this.currentDrinkCustom = null;
         },
-        getAlldrinks() {
-            this.drinks = this.alldrinks;
+        getAlldrinksCustom() {
+            this.drinksCustom = this.alldrinksCustom;
         },
         sortByDrinksName() {
-            this.drinks.sort((drink1, drink2) => drink1.strDrink.localeCompare(drink2.strDrink));
+            this.drinksCustom.sort((drink1, drink2) => drink1.strDrink.localeCompare(drink2.strDrink));
         },
         sortByDrinksNameR() {
-            this.drinks.sort((drink1, drink2) => drink2.strDrink.localeCompare(drink1.strDrink));
+            this.drinksCustom.sort((drink1, drink2) => drink2.strDrink.localeCompare(drink1.strDrink));
         },
-        filterShots(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Shot"));
+        filterShots(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Shot"));
         },
-        filterOrdinaryDrink(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Ordinary Drink"));
+        filterOrdinaryDrink(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Ordinary Drink"));
         },
-        filterCocktails(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Cocktail"));
+        filterCocktails(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Cocktail"));
         },
         filterBeer() {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Beer"));
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Beer"));
         },
-        filterCoffeeTea(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Coffee / Tea"));
+        filterCoffeeTea(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Coffee / Tea"));
         },
-        filterPunchParty(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strCategory.includes("Punch / Party Drink"));
+        filterPunchParty(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strCategory.includes("Punch / Party Drink"));
         },
-        filterAlcholic(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Alcoholic"));
+        filterAlcholic(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strAlcoholic.includes("Alcoholic"));
         },
-        filterNonAlcholic(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
+        filterNonAlcholic(drinksCustom) {
+            this.drinksCustom = this.alldrinksCustom.filter(b => b.strAlcoholic.includes("Non alcoholic"));
         },
-        getByName(search) {
-            const url = baseUrl + '?name=' + search
-            console.log(url)
-            this.helperGetAndShow(url)
+        getByNameCustom(search) {
+            const urlCustom = baseUrlCustom + "?name=" + search
+
+            console.log(urlCustom)
+            this.helperGetAndShow(urlCustom)
         },
         getByIngredient(search) {
             if (search != null) {
-                this.drinks = this.alldrinks.filter(b => b.strIngredient1.includes(search) || b.strIngredient2.includes(search))
-                return this.drinks
+                this.drinksCustom = this.alldrinksCustom.filter(b => b.strIngredient1.includes(search) || b.strIngredient2.includes(search))
+                return this.drinksCustom
             }
             else {
-                return "No drinks found"
+                return "No drinksCustom found"
             }
         },
-        async helperGetAndShow(url) {
+        async helperGetAndShow(urlCustom) {
             try {
-                const response = await axios.get(url)
-                console.log(url)
-                this.drinks = await response.data.drinks
+                const responseCustom = await axios.get(urlCustom)
+                console.log(urlCustom)
+                this.drinksCustom = await responseCustom.data.drinksCustom
             } catch (ex) {
                 alert(ex.message)
             }
