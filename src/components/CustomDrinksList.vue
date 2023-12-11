@@ -73,8 +73,7 @@
                                     @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
                                 <button type="button" class="btn btn-warning"
                                     @click="setDrink(drink) + setCurrentPage('DrinkUpdate');">Update</button>
-                                <button type="button" class="btn btn-danger"
-                                    @click="deleteDrink(drink);">Delete</button>
+                                <button type="button" class="btn btn-danger" @click="deleteDrink(drink);">Delete</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
                             </div>
@@ -191,11 +190,18 @@ export default {
                 return "No drinks found"
             }
         },
-        deleteDrink(){
-            const urlCustom = baseUrl + "/" + this.currentDrink.id
-            console.log(urlCustom)
-            axios.delete(urlCustom)
-            this.drinks = this.drinks.filter(b => b.id != this.currentDrink.id)
+        deleteDrink(drink) {
+            this.currentDrink = drink
+            if (drink && drink.id) {
+                const urlCustom = baseUrl + "/" + this.currentDrink.id
+                console.log(this.currentDrink.id)
+                console.log(urlCustom)
+                axios.delete(urlCustom)
+                this.drinks = this.drinks.filter(b => b.id != this.currentDrink.idD)
+            } else{
+                console.error("Drink is null")
+            }
+
         },
         async helperGetAndShow(urlCustom) {
             try {
