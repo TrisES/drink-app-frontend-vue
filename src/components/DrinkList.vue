@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example" v-if="!currentDrink">
+    <nav v-if="currentPage == 'liste'" class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Drinks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
@@ -41,6 +41,13 @@
     </div>
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
+
+    <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
+    <div class="text-center">
+        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CustomDrinkList')">custom drink list</button>
+    </div>
+    
+
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
@@ -94,6 +101,7 @@
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
+import CustomDrinksList from './CustomDrinksList.vue'
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
     name: 'DrinkList',
@@ -188,7 +196,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink }
+    components: { DrinkItem, CreateDrink, CustomDrinksList }
     
 
 }
