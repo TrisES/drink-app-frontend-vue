@@ -36,11 +36,7 @@
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
         </div>
     </nav>
-    <div class="text-center">
-        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CreateDrink')">Create Drink</button>
-    </div>
-    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton" @click="setCurrentPage('liste')">tilbage</button>
-    <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
+    
 
     <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
     <div class="text-center">
