@@ -177,10 +177,10 @@ export default {
                     let responsePut = await axios.put('https://drinksmaskinerest.azurewebsites.net/api/DrinkModel/' + this.idToUpdate, this.DrinkModelNew)
                     // console.log(response.status + " " + response.statusText)
                     if (responsePut.status == 200) {
-                        alert("Drink created")
+                        alert("Drink Updated")
                     }
                     if (responsePut.status == 400) {
-                        alert("Drink not created")
+                        alert("Drink not Updated")
                     }
                 } catch (exPut) {
                     console.log(exPut.message)

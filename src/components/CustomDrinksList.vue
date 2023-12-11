@@ -1,5 +1,5 @@
 <template>
-    <nav v-if="currentPageCustom == 'CustomDrinksList'" class="navbar navbar-expand-sm navbar-dark bg-dark"
+    <nav v-if="currentPage == 'CustomDrinksList'" class="navbar navbar-expand-sm navbar-dark bg-dark"
         aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Drinks</a>
@@ -39,20 +39,20 @@
     </nav>
 
     <div class="text-center">
-        <button v-if="currentPageCustom == 'CustomDrinksList'" type="button" class="btn btn-success w-50"
+        <button v-if="currentPage == 'CustomDrinksList'" type="button" class="btn btn-success w-50"
             @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
-    <button v-if="currentPageCustom == 'CreateDrink'" type="button" class="btn border-black readButton"
+    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton"
         @click="setCurrentPage('CustomDrinksList')">tilbage</button>
-    <CreateDrink v-if="currentPageCustom == 'CreateDrink'"></CreateDrink>
+    <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
 
-    <div v-if="currentPageCustom == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
+    <div v-if="currentPage == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
 
-    <ul id="drinksListe" v-if="currentPageCustom == 'CustomDrinksList'" class="list-group" style="text-align: center;">
+    <ul id="drinksListe" v-if="currentPage == 'CustomDrinksList'" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
                 <div class="col-3">
@@ -71,8 +71,12 @@
                             <div class="mt-2">
                                 <button type="button" class="btn btn-primary"
                                     @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
+
+                                
                                 <button type="button" class="btn btn-warning"
-                                    @click="setDrink(drink) + setCurrentPage('DrinkUpdate');">Update</button>
+                                    @click="setDrink(drink) + setCurrentPage('UpdateDrink');">Update</button>
+
+
                                 <button type="button" class="btn btn-danger" @click="deleteDrink(drink);">Delete</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
@@ -93,16 +97,17 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPageCustom == 'DrinkItem'" type="button" class="btn border-black readButton"
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton"
         @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
-    <DrinkItem v-if="currentPageCustom == 'DrinkItem'" :drink="currentDrink" />
+    <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
+    <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="currentDrink.id" :drinkToUpdate="currentDrink"></UpdateDrink>
 </template>
 
 <script>
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
-import Updatedrink from './UpdateDrink.vue'
+import UpdateDrink from './UpdateDrink.vue'
 const baseUrl = "http://localhost:5002/api/DrinkModel"
 export default {
     name: 'CustomDrinksList',
@@ -116,7 +121,7 @@ export default {
             currentDrink: null,
             searchToGetByCustom: "",
             searchToGetByForIngredientCustom: "",
-            currentPageCustom: 'CustomDrinksList',
+            currentPage: 'CustomDrinksList',
         };
     },
     async created() {
@@ -137,7 +142,7 @@ export default {
             this.currentDrink = drink;
         },
         setCurrentPage(page) {
-            this.currentPageCustom = page
+            this.currentPage = page
         },
         setDrinkNull() {
             this.currentDrink = null;
@@ -213,7 +218,7 @@ export default {
             }
         },
     },
-    components: { DrinkItem, CreateDrink, Updatedrink }
+    components: { DrinkItem, CreateDrink, UpdateDrink }
 
 
 }
