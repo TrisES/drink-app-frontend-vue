@@ -30,9 +30,9 @@
                     </div>
                 </div>
             </div>
-            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text"
+            <input id="searchBarNavn" v-model="searchToGetBy" placeholder="Drink Navn" type="text" v-bind="$attrs"
                 v-on:keyup.enter="getByName(searchToGetBy)" />
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text"
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredient" placeholder="Ingredient" type="text" v-bind="$attrs"
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredient)" />
         </div>
     </nav>
@@ -43,7 +43,7 @@
 
 
     <ul id="drinksListe" v-if="currentPage == 'CustomDrinksList'" class="list-group" style="text-align: center;">
-        <li class="list-Group-item mt-2" v-for="drink in drinks">
+        <li class="list-Group-item mt-2" v-bind="$attrs" v-for="drink in drinks">
             <div class="row">
                 <div class="col-3">
                 </div>
@@ -91,6 +91,7 @@ import CreateDrink from './CreateDrink.vue'
 const baseUrl = "http://localhost:5002/api/DrinkModel"
 export default {
     name: 'DrinkList',
+    inheritAttrs: false,
     data() {
         return {
             alldrinks: [],
@@ -158,12 +159,13 @@ export default {
             this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Alcoholic"));
         },
         filterNonAlcholic(drinks) {
-            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
+            this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non Alcoholic"));
         },
         getByName(search) {
             const url = baseUrl + '?name=' + search
             console.log(url)
             this.helperGetAndShow(url)
+            console.log(this.drinks)
         },
         getByIngredient(search) {
             if (search != null) {
@@ -176,9 +178,9 @@ export default {
         },
         async helperGetAndShow(url) {
             try {
-                const response = await axios.get(url)
+                const responseC = await axios.get(url)
                 console.log(url)
-                this.drinks = await response.data.drinks
+                this.drinks = await responseC.data.drinks
             } catch (ex) {
                 alert(ex.message)
             }
