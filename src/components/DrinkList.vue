@@ -93,7 +93,7 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger" @click="setCurrentPage('liste') + setDrinkNull()">Go Back</button>
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger" @click="setCurrentPage('liste') + setDrinkNull()">Tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
 </template>
 

@@ -19,7 +19,7 @@
                         <button id="filterOrdinaryDrink" class="dropdown-item" v-on:click="filterOrdinaryDrink()">Ordinary
                             Drink</button>
                         <button id="filterPunch&party" class="dropdown-item" v-on:click="filterPunchParty()">Punch &
-                            Party drinkCustom</button>
+                            Party drink</button>
                         <button id="filterCoffeeTea" class="dropdown-item" v-on:click="filterCoffeeTea()">Coffee &
                             Tea</button>
                         <button id="filterBeer" class="dropdown-item" v-on:click="filterBeer()">Beer</button>
@@ -36,6 +36,7 @@
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
         </div>
     </nav>
+
     <div v-if="currentPageCustom == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
@@ -43,7 +44,7 @@
 
 
     <ul id="drinksListe" v-if="currentPageCustom == 'CustomDrinksList'" class="list-group" style="text-align: center;">
-        <li class="list-Group-item mt-2" v-for="drinkCustom in drinksCustom">
+        <li class="list-Group-item mt-2" v-for="drink in drinksCustom">
             <div class="row">
                 <div class="col-3">
                 </div>
@@ -52,14 +53,14 @@
                         <div class="media-left">
                             <div class="media-body">
                                 <div class="drinkNavn">
-                                    <h4 class="media-heading">{{ drinkCustom.strDrink }}</h4>
+                                    <h4 class="media-heading">{{ drink.strDrink }}</h4>
                                 </div>
-                                Ingredienter: <span class="Indregient1">{{ drinkCustom.strIngredient1 }}</span> og <span
-                                    class="Indregient2">{{ drinkCustom.strIngredient2 }}</span><br>
-                                <span class="AlkoholJaNej"> <b>{{ drinkCustom.strAlcoholic }}</b> </span>
+                                Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
+                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br>
+                                <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn border-black readButton" @click="setDrink(drinkCustom) + setCurrentPage('DrinkItem');" >Læs
+                                <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" >Læs
                                     mere</button>
                                 <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
 
@@ -71,7 +72,7 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drinkCustom.strDrinkThumb" alt="..."
+                                <img class="media-object mt-2 mb-2" id="listeBillede" :src="drink.strDrinkThumb" alt="..."
                                     style="height: 100px; width: 100px;">
                             </a>
                         </div>
@@ -81,7 +82,7 @@
         </li>
     </ul>
     <button v-if="currentPageCustom == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
-    <DrinkItem v-if="currentPageCustom == 'DrinkItem'" :drinkCustom="currentDrinkCustom" />
+    <DrinkItem v-if="currentPageCustom == 'DrinkItem'" :drink="currentDrinkCustom" />
 </template>
 
 <script>
@@ -95,7 +96,7 @@ export default {
         return {
             alldrinksCustom: [],
             drinksCustom: [],
-            drinkCustom: null,
+            drink: null,
             ingredientsCustom: [],
             ingredientCustom: null,
             currentDrinkCustom: null,
@@ -118,8 +119,8 @@ export default {
         }
     },
     methods: {
-        setDrink(drinkCustom) {
-            this.currentDrinkCustom = drinkCustom;
+        setDrink(drink) {
+            this.currentDrinkCustom = drink;
         },
         setCurrentPage(page){
             this.currentPageCustom = page
