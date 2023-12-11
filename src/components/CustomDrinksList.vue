@@ -62,7 +62,9 @@
                             <div class="mt-2">
                                 <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" >Læs
                                     mere</button>
-                                <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
+                                    <button type="button" class="btn border-black readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem');" 
+                                    >Update</button>
+                                
 
                             </div>
                         </div>
@@ -83,12 +85,14 @@
     </ul>
     <button v-if="currentPageCustom == 'DrinkItem'" type="button" class="btn border-black readButton" @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
     <DrinkItem v-if="currentPageCustom == 'DrinkItem'" :drink="currentDrinkCustom" />
+    <UpdateDrink v-if="currentPageCustom == 'UpdateDrink'" :drink="currentDrinkCustom" />
 </template>
 
 <script>
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
+import UpdateDrink from './UpdateDrink.vue'
 const baseUrlCustom = "http://localhost:5002/api/DrinkModel"
 export default {
     name: 'CustomDrinksList',
