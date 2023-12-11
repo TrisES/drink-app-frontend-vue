@@ -115,7 +115,7 @@ export default {
             currentDrink: null,
             searchToGetBy: "",
             searchToGetByForIngredient: "",
-            currentPae: "liste"
+            currentPage: "liste"
         };
     },
     async created() {
