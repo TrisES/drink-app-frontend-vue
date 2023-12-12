@@ -1,4 +1,5 @@
 <template>
+    <!--Denne side viser når man klikker ind på den enkelte drink. Og hvordan det bliver displayet-->
     <div class="container text-center">
         <div class="row">
             <div class="col-md-12">
@@ -37,6 +38,7 @@
 
 <script>
 export default {
+    //data bliver sat til at være tomme arrays og null
     name: 'DrinkItem',
     props: {
         drink: {
@@ -51,6 +53,7 @@ export default {
         }
     },
     created() {
+        //created hook bliver brugt til at kalde metoderne
         this.ingredientsToList()
         this.measuresToList()
     },

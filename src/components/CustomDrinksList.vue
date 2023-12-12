@@ -7,6 +7,7 @@
                 aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!--Alle filtre på drinks, så man kan filtrere efter hvad man leder efter. DVS shots, cocktails osv. -->
             <div class="container mt-1">
                 <div class="dropdown" style="text-align: left;">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -31,18 +32,19 @@
                     </div>
                 </div>
             </div>
+            <!--Søge funktionen som gør at du kan søge på forskellige drinks, baseret på deres navn-->
             <input id="searchBarNavn" v-model="searchToGetByCustom" placeholder="Drink Navn" type="text"
                 v-on:keyup.enter="getByNameCustom(searchToGetByCustom)" />
             <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Ingredient" type="text"
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
         </div>
     </nav>
-
+    <!--Sorterings knapper og Create knap, så man kan oprette nye drinks.-->
     <div class="text-center">
         <button v-if="currentPage == 'CustomDrinksList'" type="button" class="btn btn-success w-50"
             @click="setCurrentPage('CreateDrink')">Create Drink</button>
-            
     </div>
+
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton"
         @click="setCurrentPage('CustomDrinksList')">tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
@@ -52,7 +54,7 @@
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
-
+    <!--Displayer alle drinks-->
     <ul id="drinksListe" v-if="currentPage == 'CustomDrinksList'" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
@@ -98,6 +100,7 @@
             </div>
         </li>
     </ul>
+    <!--Tilbage knapper fra den enkelte side man er i-->
     <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger"
         @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
@@ -143,6 +146,7 @@ export default {
         }
     },
     methods: {
+        //Metoder til at sortere drinks, filtrere drinks, slette drinks samt at se alle drinks 
         setDrink(drink) {
             this.currentDrink = drink;
         },
