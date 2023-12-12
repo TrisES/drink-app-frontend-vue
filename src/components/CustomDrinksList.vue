@@ -41,6 +41,7 @@
     <div class="text-center">
         <button v-if="currentPage == 'CustomDrinksList'" type="button" class="btn btn-success w-50"
             @click="setCurrentPage('CreateDrink')">Create Drink</button>
+            
     </div>
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton"
         @click="setCurrentPage('CustomDrinksList')">tilbage</button>
@@ -97,10 +98,14 @@
             </div>
         </li>
     </ul>
-    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn border-black readButton"
+    <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger"
         @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
+    <button v-if="currentPage == 'UpdateDrink'" type="button" class="btn btn-danger"
+        @click="setCurrentPage('CustomDrinksList')">tilbage</button>
     <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="currentDrink.id" :drinkToUpdate="currentDrink"></UpdateDrink>
+
+
 </template>
 
 <script>
@@ -108,7 +113,7 @@ import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
 import UpdateDrink from './UpdateDrink.vue'
-const baseUrl = "http://localhost:5002/api/DrinkModel"
+const baseUrl = "https://drinksmaskinerest.azurewebsites.net/api/DrinkModel"
 export default {
     name: 'CustomDrinksList',
     data() {
