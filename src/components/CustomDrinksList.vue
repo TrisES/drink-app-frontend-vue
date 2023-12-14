@@ -33,8 +33,8 @@
                 </div>
             </div>
             <!--Søge funktionen som gør at du kan søge på forskellige drinks, baseret på deres navn-->
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Search by Ingredient" type="text"
-                v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Search by Ingredient"
+                type="text" v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
         </div>
     </nav>
     <!--Sorterings knapper og Create knap, så man kan oprette nye drinks.-->
@@ -73,7 +73,7 @@
                                 <button type="button" class="btn btn-primary"
                                     @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
 
-                                
+
                                 <button type="button" class="btn btn-warning"
                                     @click="setDrink(drink) + setCurrentPage('UpdateDrink');">Update</button>
 
@@ -104,9 +104,8 @@
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
     <button v-if="currentPage == 'UpdateDrink'" type="button" class="btn btn-danger"
         @click="setCurrentPage('CustomDrinksList')">Tilbage</button>
-    <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="currentDrink.id" :drinkToUpdate="currentDrink"></UpdateDrink>
-
-
+    <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="currentDrink.id" :drinkToUpdate="currentDrink">
+    </UpdateDrink>
 </template>
 
 <script>
@@ -202,17 +201,28 @@ export default {
                 return "No drinks found"
             }
         },
-        deleteDrink(drink) {
+        async deleteDrink(drink) {
             this.currentDrink = drink
             if (drink && drink.id) {
-                const urlCustom = baseUrl + "/" + this.currentDrink.id
-                console.log(this.currentDrink.id)
-                console.log(urlCustom)
-                axios.delete(urlCustom)
-                this.drinks = this.drinks.filter(b => b.id != this.currentDrink.idD)
-            } else{
-                console.error("Drink is null")
+                try {
+                    const urlCustom = baseUrl + "/" + this.currentDrink.id
+                    console.log(this.currentDrink.id)
+                    console.log(urlCustom)
+                    let responseDel = await axios.delete(urlCustom)
+                    this.drinks = this.drinks.filter(b => b.id != this.currentDrink.idD)
+                    if (responseDel.status == 200) {
+                        alert("Drink Deleted")
+                    }
+                    if (responseDel.status == 400) {
+                        alert("Drink not Deleted")
+                    }
+                } catch (exPut) {
+                    console.log(exPut.message)
+                    alert("Drink not deleted. \nException: " + exPut.message)
+                }
+
             }
+
 
         },
         // async helperGetAndShow(urlCustom) {
