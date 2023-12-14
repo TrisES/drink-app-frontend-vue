@@ -13,7 +13,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="alHeader">Alchoholic</h3>
+                            <h3 class="alHeader">{{drink.strAlcoholic}}</h3>
                         </div>
                     </div>
                 </div>
@@ -31,11 +31,18 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="mt-2">
+                <button type="button" class="btn btn-primary"
+                    @click="chooseDrink(this.drink.id)">Lav drink</button>
+            </div>
+        </div>
 
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'DrinkItem',
     props: {
@@ -48,6 +55,7 @@ export default {
         return {
             ingredients: [],
             measures: [],
+
         }
     },
     created() {
@@ -74,7 +82,23 @@ export default {
                 }
             }
             console.log(this.measures)
-        }
+        },
+        async chooseDrink(id){
+            try {
+                    let responsePost = await axios.post('https://drinksmaskinerest.azurewebsites.net/api/Opskrift/' + id)
+                    // console.log(response.status + " " + response.statusText)
+                    if (responsePost.status == 200) {
+                        alert("Drink ready")
+                    }
+                    if (responsePost.status == 400) {
+                        alert("Drink not ready")
+                    }
+                } catch (exPost) {
+                    console.log(exPost.message)
+                    alert("Drink not created. \nException: "+exPost.message)
+                }
+
+        },
     }
 }
 </script>
