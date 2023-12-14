@@ -43,7 +43,7 @@
             @click="setCurrentPage('CreateDrink')">Create Drink</button>
     </div>
 
-    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton"
+    <button v-if="currentPage == 'CreateDrink'" type="button" class="btn btn-danger"
         @click="setCurrentPage('CustomDrinksList')">Tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
 
