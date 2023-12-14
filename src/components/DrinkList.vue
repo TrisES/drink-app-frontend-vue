@@ -41,7 +41,7 @@
     <!--knap til komme ind på Custom drinks som er dem som ligger i databasen, og dem man selv opretter.-->
     <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
     <div class="text-center">
-        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CustomDrinkList')">custom drink list</button>
+        <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CustomDrinkList')">Custom drink list</button>
     </div>
 
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">

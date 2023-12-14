@@ -33,9 +33,7 @@
                 </div>
             </div>
             <!--Søge funktionen som gør at du kan søge på forskellige drinks, baseret på deres navn-->
-            <input id="searchBarNavn" v-model="searchToGetByCustom" placeholder="Drink Navn" type="text"
-                v-on:keyup.enter="getByNameCustom(searchToGetByCustom)" />
-            <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Ingredient" type="text"
+            <input id="searchBarIngredient" v-model="searchToGetByForIngredientCustom" placeholder="Search by Ingredient" type="text"
                 v-on:keyup.enter="getByIngredient(searchToGetByForIngredientCustom)" />
         </div>
     </nav>
@@ -46,7 +44,7 @@
     </div>
 
     <button v-if="currentPage == 'CreateDrink'" type="button" class="btn border-black readButton"
-        @click="setCurrentPage('CustomDrinksList')">tilbage</button>
+        @click="setCurrentPage('CustomDrinksList')">Tilbage</button>
     <CreateDrink v-if="currentPage == 'CreateDrink'"></CreateDrink>
 
     <div v-if="currentPage == 'CustomDrinksList'" class="mt-1 mt-5" style="text-align: center;">
@@ -102,10 +100,10 @@
     </ul>
     <!--Tilbage knapper fra den enkelte side man er i-->
     <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger"
-        @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">tilbage</button>
+        @click="setCurrentPage('CustomDrinksList') + setDrinkNull()">Tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
     <button v-if="currentPage == 'UpdateDrink'" type="button" class="btn btn-danger"
-        @click="setCurrentPage('CustomDrinksList')">tilbage</button>
+        @click="setCurrentPage('CustomDrinksList')">Tilbage</button>
     <UpdateDrink v-if="currentPage == 'UpdateDrink'" :idToUpdate="currentDrink.id" :drinkToUpdate="currentDrink"></UpdateDrink>
 
 
@@ -189,12 +187,12 @@ export default {
         filterNonAlcholic(drinks) {
             this.drinks = this.alldrinks.filter(b => b.strAlcoholic.includes("Non alcoholic"));
         },
-        getByNameCustom(search) {
-            const urlCustom = baseUrl + "?name=" + search
+        // getByNameCustom(search) {
+        //     const urlCustom = baseUrl + "?name=" + search
 
-            console.log(urlCustom)
-            this.helperGetAndShow(urlCustom)
-        },
+        //     console.log(urlCustom)
+        //     this.helperGetAndShow(urlCustom)
+        // },
         getByIngredient(search) {
             if (search != null) {
                 this.drinks = this.alldrinks.filter(b => b.strIngredient1.includes(search) || b.strIngredient2.includes(search))
@@ -217,15 +215,15 @@ export default {
             }
 
         },
-        async helperGetAndShow(urlCustom) {
-            try {
-                const responseCustom = await axios.get(urlCustom)
-                console.log(urlCustom)
-                this.drinks = await responseCustom.data.drinks
-            } catch (ex) {
-                alert(ex.message)
-            }
-        },
+        // async helperGetAndShow(urlCustom) {
+        //     try {
+        //         const responseCustom = await axios.get(urlCustom)
+        //         console.log(urlCustom)
+        //         this.drinks = await responseCustom.data.drinks
+        //     } catch (ex) {
+        //         alert(ex.message)
+        //     }
+        // },
     },
     components: { DrinkItem, CreateDrink, UpdateDrink }
 
