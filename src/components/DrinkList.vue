@@ -6,6 +6,7 @@
                 aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!--Filtrerings knapper så man kan filtrere på drinks-->
             <div class="container mt-1">
                 <div class="dropdown" style="text-align: left;">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -37,19 +38,18 @@
         </div>
     </nav>
     
-
+    <!--knap til komme ind på Custom drinks som er dem som ligger i databasen, og dem man selv opretter.-->
     <CustomDrinksList v-if="currentPage == 'CustomDrinkList'" :drinks="drinks" />
     <div class="text-center">
         <button v-if="currentPage == 'liste'" type="button" class="btn btn-success w-50" @click="setCurrentPage('CustomDrinkList')">custom drink list</button>
     </div>
-    
 
     <div v-if="currentPage == 'liste'" class="mt-1 mt-5" style="text-align: center;">
         <button type="button" class="btn border-black" id="sortByAsc" v-on:click="sortByDrinksName()">↑</button>
         <button type="button" class="btn border-black" id="sortByDsc" v-on:click="sortByDrinksNameR()">↓</button>
     </div>
 
-
+    <!--Displayer alle drinks fra API-->
     <ul id="drinksListe" v-if="currentPage == 'liste'" class="list-group" style="text-align: center;">
         <li class="list-Group-item mt-2" v-for="drink in drinks">
             <div class="row">
@@ -62,16 +62,12 @@
                                 <div class="drinkNavn">
                                     <h4 class="media-heading">{{ drink.strDrink }}</h4>
                                 </div>
-                                <!-- Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
-                                    class="Indregient2">{{ drink.strIngredient2 }}</span><br> -->
-                                <!-- Tags: <span class="Tags">{{ drink.strTags }}</span><br> -->
+
                                 Category: <span class="Kategori">{{ drink.strCategory }}</span><br>
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
                                 <button type="button" class="btn btn-primary" @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
-                                <!-- referer til drinkItem, og hide/unhide alt efter læs mere knap -->
-
                             </div>
                         </div>
                     </div>
@@ -89,17 +85,20 @@
             </div>
         </li>
     </ul>
+    <!--Tilbage knapper så man kommer tilbage fra den enkelte drink side-->
     <button v-if="currentPage == 'DrinkItem'" type="button" class="btn btn-danger" @click="setCurrentPage('liste') + setDrinkNull()">Tilbage</button>
     <DrinkItem v-if="currentPage == 'DrinkItem'" :drink="currentDrink" />
 </template>
 
 <script>
+//Axios og enkelte komponenter bliver importeret
 import axios from 'axios';
 import DrinkItem from './DrinkItem.vue';
 import CreateDrink from './CreateDrink.vue'
 import CustomDrinksList from './CustomDrinksList.vue'
 const baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 export default {
+    //data bliver sat til at være tomme arrays og null
     name: 'DrinkList',
     data() {
         return {
@@ -115,6 +114,7 @@ export default {
         };
     },
     async created() {
+        //Her bliver der hentet data fra API'en
         try {
             const response = await axios.get(baseUrl);
             this.drinks = await response.data.drinks;
@@ -127,6 +127,7 @@ export default {
         }
     },
     methods: {
+        //Metoder til de forskellige knapper, og get all drinks 
         setDrink(drink) {
             this.currentDrink = drink;
         },
