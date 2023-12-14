@@ -184,7 +184,7 @@ export default {
                     }
                 } catch (exPut) {
                     console.log(exPut.message)
-                    alert("Drink not created. \nException: " + exPut.message)
+                    alert("Drink not updated. \nException: " + exPut.message)
                 }
             }
 
