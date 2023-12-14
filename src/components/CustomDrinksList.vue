@@ -65,7 +65,7 @@
                                 <div class="drinkNavn">
                                     <h4 class="media-heading">{{ drink.strDrink }}</h4>
                                 </div>
-                                Ingredienter: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
+                                Ingredienser: <span class="Indregient1">{{ drink.strIngredient1 }}</span> og <span
                                     class="Indregient2">{{ drink.strIngredient2 }}</span><br>
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
