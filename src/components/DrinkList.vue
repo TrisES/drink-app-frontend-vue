@@ -67,7 +67,7 @@
                                 <span class="AlkoholJaNej"> <b>{{ drink.strAlcoholic }}</b> </span>
                             </div>
                             <div class="mt-2">
-                                <button type="button" class="btn btn-primary" @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
+                                <button type="button" class="btn btn-primary readButton" @click="setDrink(drink) + setCurrentPage('DrinkItem')">Details</button>
                             </div>
                         </div>
                     </div>
