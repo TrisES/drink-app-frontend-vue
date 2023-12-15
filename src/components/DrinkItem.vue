@@ -20,13 +20,13 @@
                 </div>
                 <div class="col-md-6 text">
                     <h2>Instructions</h2>
-                    <p class="instructions">{{ drink.strInstructions }}</p>
+                    <p class="instructions fs-4">{{ drink.strInstructions }}</p>
                 </div>
                 <div class="col-md-6">
                     <h2>Ingredients:</h2>
                     <ul id="ingredientsList" class="ingredients-list list-unstyled">
                         <li v-for="ingredient in ingredients">
-                            <span>{{ ingredient }}</span> - <span>{{ measures[ingredients.indexOf(ingredient)] }}</span>
+                            <span class="fs-4">{{ ingredient }}</span> - <span class="fs-4">{{ measures[ingredients.indexOf(ingredient)] }}</span>
                         </li>
                     </ul>
                 </div>
